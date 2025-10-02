@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 
-// 1. Import all custom page components, including the new AgeGatePage
+// Pages
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
-import AgeGatePage from "./pages/AgeGatePage.jsx"; // <--- NEW IMPORT
+import AgeGatePage from "./pages/AgeGatePage.jsx";
 
-// --- PLACEHOLDER COMPONENTS (Only those not yet built) ---
-// The AgeGatePage function has been removed because it is now imported.
-
+// Dashboards
 function ProDashboard() {
   return <h1>Professional Student Dashboard (Pro UI)</h1>;
 }
@@ -17,16 +15,15 @@ function ProDashboard() {
 function KidDashboard() {
   return <h1>Kid's Fun Learning Zone (Kid UI)</h1>;
 }
-// -----------------------------------------------------------
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userAgeCategory, setUserAgeCategory] = useState(null);
 
   return (
-    <div className="App">
+    <div className="app-container">
       <Routes>
-        {/* 1. Public Routes: Signup and Login */}
+        {/* Public Routes */}
         <Route
           path="/signup"
           element={<SignupPage onSignupSuccess={setIsLoggedIn} />}
@@ -36,15 +33,14 @@ function App() {
           element={<LoginPage onLoginSuccess={setIsLoggedIn} />}
         />
 
-        {/* 2. Initial Redirect: Send users to /login */}
+        {/* Initial Redirect */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* 3. Protected Route: Age Gate (Requires Login) */}
+        {/* Age Gate */}
         <Route
           path="/age-gate"
           element={
             isLoggedIn ? (
-              // This now renders the fully functional, styled component
               <AgeGatePage onSetAgeCategory={setUserAgeCategory} />
             ) : (
               <Navigate to="/login" replace />
@@ -52,7 +48,7 @@ function App() {
           }
         />
 
-        {/* 4. Category Routes (Requires Age Check) */}
+        {/* Protected Dashboards */}
         <Route
           path="/pro-dashboard"
           element={
@@ -74,7 +70,7 @@ function App() {
           }
         />
 
-        {/* 5. Catch-all */}
+        {/* Catch-all */}
         <Route path="*" element={<h1>404 - Page Not Found</h1>} />
       </Routes>
     </div>

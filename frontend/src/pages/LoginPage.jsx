@@ -1,34 +1,26 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// 1. Import Firebase tools
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // Import the initialized auth object
+import { auth } from "../firebase";
+import "./LoginPage.css";
 
 function LoginPage({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State to hold error messages
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  // 2. Update the handleLogin function to use Firebase
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
+    setIsLoading(true);
 
     try {
-      // THIS is the line that talks to Firebase
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      // If successful, log the user in and redirect
-      console.log("User logged in:", userCredential.user.uid);
-      onLoginSuccess(true); // Tell App.jsx the user is logged in
+      await signInWithEmailAndPassword(auth, email, password);
+      onLoginSuccess(true);
       navigate("/age-gate");
     } catch (error) {
-      // If Firebase returns an error (like 'user-not-found' or 'wrong-password')
       console.error("Login failed:", error.code);
       if (
         error.code === "auth/user-not-found" ||
@@ -38,78 +30,73 @@ function LoginPage({ onLoginSuccess }) {
       } else {
         setError("Login failed. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    // Tailwind classes for a professional centered form
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-      <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-sm">
-        <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
-          Welcome Back!
-        </h2>
+    <div className="main-container">
+      <ul className="circles"></ul>
+      <div className="card-container">
+        <div className="header">
+          <div className="brand-icon-container">
+            <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h1>Welcome Back</h1>
+          <p>Sign in to your XPrep account</p>
+        </div>
 
-        {/* Display Error Message */}
         {error && (
-          <p className="mb-4 p-3 bg-red-100 text-red-700 border border-red-400 rounded-lg text-sm">
-            {error}
-          </p>
+          <div className="error-message">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+            </svg>
+            <span>{error}</span>
+          </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
+        <form onSubmit={handleLogin} className="form">
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="you@example.com"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="form-input"
+              placeholder="Enter your email"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Your secret password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <div className="password-field">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="form-input"
+                placeholder="Enter your password"
+              />
+              <button type="button" className="password-toggle" onClick={() => {
+                const input = document.querySelector('.password-field input');
+                input.type = input.type === 'password' ? 'text' : 'password';
+              }}>👁</button>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-md transition duration-150"
-          >
-            Log In
+          <button type="submit" disabled={isLoading} className="submit-button">
+            {isLoading ? 'Signing In...' : 'Sign In Securely'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="font-medium text-blue-600 hover:text-blue-500"
-          >
-            Create one here
-          </Link>
-        </p>
+        <div className="footer">
+          Don&apos;t have an account? <Link to="/signup" className="footer-link">Create New Account</Link>
+        </div>
       </div>
     </div>
   );
