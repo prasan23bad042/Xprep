@@ -36,7 +36,7 @@ function LoginPage({ onLoginSuccess }) {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container" >
       <ul className="circles"></ul>
       <div className="card-container">
         <div className="header">
@@ -45,7 +45,8 @@ function LoginPage({ onLoginSuccess }) {
               <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
             </svg>
           </div>
-          <h1>Welcome Back</h1>
+          <h1>Welcome to the Xprep</h1>          
+          <h2>A Exam Preparation Platform</h2>          
           <p>Sign in to your XPrep account</p>
         </div>
 

@@ -1,0 +1,302 @@
+/* SignupPage.css */
+
+/* Keyframes for animations */
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ------------------------------------ */
+/* Background & Container       */
+/* ------------------------------------ */
+
+.signup-container {
+    min-height: 100vh;
+    /* Tailwind: bg-gradient-to-br from-slate-50 via-emerald-50 to-green-100 */
+    background: linear-gradient(to bottom right, #f8fafc, #f0fff4, #f0fdf4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Orbs (Tailwind equivalent) */
+.signup-orb-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24rem;
+    height: 24rem;
+    /* from-emerald-200/40 to-green-200/40 */
+    background: linear-gradient(to bottom left, rgba(204, 251, 238, 0.4), rgba(209, 250, 229, 0.4));
+    border-radius: 9999px;
+    filter: blur(8rem);
+    transform: translate(8rem, -8rem);
+}
+
+.signup-orb-2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20rem;
+    height: 20rem;
+    /* from-green-200/40 to-teal-200/40 */
+    background: linear-gradient(to top right, rgba(209, 250, 229, 0.4), rgba(204, 251, 241, 0.4));
+    border-radius: 9999px;
+    filter: blur(8rem);
+    transform: translate(-5rem, 5rem);
+}
+
+.signup-grid {
+    position: absolute;
+    inset: 0;
+    /* rgba(16,185,129,0.05) is emerald-500/05 */
+    background-image: radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+}
+
+/* ------------------------------------ */
+/* Main Card               */
+/* ------------------------------------ */
+
+.signup-card-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 28rem;
+}
+
+.signup-card {
+    /* bg-white/80 backdrop-blur-2xl... */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(24px);
+    border-radius: 1.5rem; /* 24px */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 3rem;
+    transition: all 0.5s ease;
+}
+
+.signup-card:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(1.01);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Icon Styling */
+.signup-icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    /* from-emerald-600 via-green-600 to-teal-700 */
+    background: linear-gradient(to bottom right, #059669, #0d9488, #115e59);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3), 0 4px 6px -2px rgba(16, 185, 129, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signup-icon-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+/* ------------------------------------ */
+/* Form Elements             */
+/* ------------------------------------ */
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.75rem; /* Replaces space-y-3 */
+}
+
+.input-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.input-icon {
+    position: absolute;
+    inset-y: 0;
+    left: 0;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.input-field {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem; 
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    color: #1f2937;
+}
+
+.input-field::placeholder {
+    color: #6b7280;
+}
+
+.input-field:focus {
+    border-color: #10b981; /* emerald-500 */
+    background: white;
+}
+
+/* Show Password Button */
+.show-password-btn {
+    position: absolute;
+    inset-y: 0;
+    right: 0;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+    color: #9ca3af;
+    transition: color 0.2s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 1rem 1rem 0;
+}
+
+.show-password-btn:hover {
+    color: #4b5563;
+}
+
+/* ------------------------------------ */
+/* Buttons                 */
+/* ------------------------------------ */
+
+/* Submit Button */
+.btn-submit {
+  width: auto; /* remove full-width to make it compact */
+  padding: 0.5rem 1rem; /* smaller padding */
+  background: linear-gradient(to right, #059669, #0d9488, #115e59);
+  color: white;
+  font-weight: 600; /* slightly lighter bold */
+  font-size: 0.9rem; /* smaller text */
+  border-radius: 0.5rem; /* less rounded */
+  border: none;
+  box-shadow: 0 5px 10px -2px rgba(16, 185, 129, 0.3),
+              0 2px 4px -1px rgba(16, 185, 129, 0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-flex; /* makes it compact instead of stretching */
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+
+.btn-submit:hover {
+    /* hover:from-emerald-700 hover:via-green-700 hover:to-teal-800 */
+    background: linear-gradient(to right, #047857, #065f46, #0f4f46);
+    box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.5), 0 8px 10px -6px rgba(16, 185, 129, 0.3);
+    transform: scale(1.01);
+}
+
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Sign In Link Button */
+.btn-signin {
+  padding: 0.5rem 1rem; /* smaller height + width */
+  background: linear-gradient(to right, #3b82f6, #6366f1, #9333ea);
+  color: white;
+  font-weight: 600; /* slightly lighter bold */
+  font-size: 0.9rem; /* smaller text */
+  border-radius: 0.5rem; /* less rounded */
+  box-shadow: 0 5px 10px -2px rgba(59, 130, 246, 0.3),
+              0 2px 4px -1px rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease;
+  display: inline-flex; /* so it doesn’t stretch */
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-signin:hover {
+    /* hover:from-blue-600 hover:via-indigo-600 hover:to-purple-700 */
+    background: linear-gradient(to right, #2563eb, #4f46e5, #7e22ce);
+    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.5), 0 8px 10px -6px rgba(59, 130, 246, 0.3);
+    transform: scale(1.01);
+}
+
+/* ------------------------------------ */
+/* Error Message            */
+/* ------------------------------------ */
+
+.error-box {
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    /* bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl */
+    background: rgba(254, 242, 242, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(254, 202, 202, 0.5);
+    border-radius: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    animation: pulse 1.5s infinite;
+}
+
+.error-icon-wrapper {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #fee2e2;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.125rem;
+}
+
+.error-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #dc2626;
+}
+
+.error-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #991b1b;
+    margin-bottom: 0.25rem;
+}
+
+.error-message {
+    font-size: 0.875rem;
+    color: #b91c1c;
+    line-height: 1.5;
+}

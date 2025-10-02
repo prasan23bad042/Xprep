@@ -1,0 +1,90 @@
+/* AgeGatePage.css */
+
+/* Full page layout */
+.agegate-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e6f7ff 100%);
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Main card */
+.agegate-card {
+  background: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Title */
+.agegate-card h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1f2937; /* dark gray */
+}
+
+/* Subtitle text */
+.agegate-card p {
+  font-size: 1rem;
+  color: #4b5563; /* medium gray */
+  margin-bottom: 2rem;
+}
+
+/* Button container */
+.agegate-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Base button style */
+.agegate-btn {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Kid button */
+.agegate-btn.kid {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+}
+.agegate-btn.kid:hover {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  transform: translateY(-2px);
+}
+
+/* Pro button */
+.agegate-btn.pro {
+  background: linear-gradient(135deg, #059669, #0d9488);
+}
+.agegate-btn.pro:hover {
+  background: linear-gradient(135deg, #047857, #0f766e);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
